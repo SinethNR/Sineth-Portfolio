@@ -71,8 +71,8 @@ export type NavLink = { label: string; href: string };
 
 // ---------- Site / SEO ----------
 export const site = {
-  // TODO: set to your deployed URL (used for canonical + social preview links)
-  url: "https://sinethnr.github.io",
+  // Deployed URL (used for canonical + social preview links)
+  url: "https://sineth-portfolio-pi.vercel.app",
   title: "Sineth Nimhan — AI Engineer (Computer Vision & LLM Agents)",
   description:
     "Junior AI Engineer from Sri Lanka. I train YOLOv8/v11 computer vision models, build LLM agents with LangChain and LangGraph, and ship them as production pipelines and full-stack apps. Currently at TilliT.",
