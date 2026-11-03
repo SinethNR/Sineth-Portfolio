@@ -58,8 +58,10 @@ export type Project = {
   github?: string;
   demo?: string;
   linkedinPost: string;
-  /** Placeholder SVG for now. Drop public/projects/<slug>.jpg in and change the extension here. */
+  /** Cover image in public/projects/ */
   image: string;
+  /** Shown as a small tag on the image so visitors know what they're looking at */
+  imageKind?: "screenshot" | "ai";
   featured?: boolean;
   /** Small note shown on the card, e.g. "Private · company project" */
   note?: string;
@@ -105,7 +107,7 @@ export const profile: Profile = {
   location: "Sri Lanka",
   email: "rdsnimhan@gmail.com",
   photo: "/me.jpg",
-  cvUrl: "/cv.pdf", // TODO: add public/cv.pdf
+  cvUrl: "/cv.pdf",
   status: "building AI traceability with YOLOv11 @ TilliT",
   timeZone: "Asia/Colombo",
   timeZoneLabel: "Moratuwa, Sri Lanka",
@@ -236,8 +238,9 @@ export const experience: Experience[] = [
 ];
 
 // ---------- Projects ----------
-// Images: placeholders live at public/projects/<slug>.svg.
-// To use a real image, add public/projects/<slug>.jpg and change ".svg" → ".jpg" below.
+// Images live in public/projects/. imageKind "ai" = AI-generated illustration,
+// "screenshot" = real screenshot. Replace an AI image by overwriting the .jpg
+// with a real one and setting imageKind: "screenshot".
 export const projects: Project[] = [
   {
     slug: "ai-traceability",
@@ -254,7 +257,8 @@ export const projects: Project[] = [
     tech: ["Python", "YOLOv11", "Computer Vision", "LLM Agents"],
     categories: ["AI", "CV"],
     linkedinPost: "", // TODO: paste the LinkedIn post URL
-    image: "/projects/ai-traceability.svg",
+    image: "/projects/ai-traceability.jpg",
+    imageKind: "ai",
     featured: true,
     note: "Private · company project",
   },
@@ -265,18 +269,18 @@ export const projects: Project[] = [
     description:
       "A full-stack platform for managing an organisation's assets, meals, maintenance requests and users, with separate dashboards for admins and staff. Built by FiveStackDev, a 5-member team led by Minul (github.com/Minulck), for a WSO2 competition — a Ballerina backend on MySQL with a React frontend.",
     highlights: [
-      "5-member team project; I built the Asset Management UI — asset table, asset pop-ups and the user asset-request flow",
+      "Implemented real-time dashboards, automated email notifications and role-based access control",
       "Ballerina backend split into 5 services — main, reports, dashboard, notifications, auth — on MySQL",
-      "JWT auth with role-based access (Admin, SuperAdmin, Manager, User), SMTP notifications and scheduled PDF reports",
+      "5-member FiveStackDev team project for a WSO2 competition (2024 – 2025)",
     ],
-    tech: ["Ballerina", "MySQL", "React", "Material UI", "Tailwind CSS", "JWT"],
+    tech: ["Ballerina", "MySQL", "React", "Socket.io", "Tailwind CSS", "Material UI"],
     categories: ["Web"],
-    // From the commit history (12 frontend commits). TODO: confirm or expand.
-    role: "Frontend — Asset Management module: asset table, asset pop-ups, user asset-request button and request table.",
+    role: "Full Stack Developer",
     github: "https://github.com/FiveStackDev",
     demo: "https://fivestackdev-resourcehub.vercel.app/login",
     linkedinPost: "", // TODO
-    image: "/projects/resource-hub.svg",
+    image: "/projects/resource-hub.jpg",
+    imageKind: "screenshot",
     note: "Team project · 5 members", // TODO: add the competition name / result
   },
   {
@@ -294,7 +298,8 @@ export const projects: Project[] = [
     categories: ["Mobile"],
     github: "https://github.com/SinethNR/bus-lanka",
     linkedinPost: "", // TODO
-    image: "/projects/bus-lanka.svg",
+    image: "/projects/bus-lanka.jpg",
+    imageKind: "ai",
   },
   {
     slug: "lexhub",
@@ -313,7 +318,8 @@ export const projects: Project[] = [
     github: "https://github.com/SinethNR/lexhub-demo",
     demo: "https://lexhub-frontdemo.vercel.app",
     linkedinPost: "", // TODO
-    image: "/projects/lexhub.svg",
+    image: "/projects/lexhub.jpg",
+    imageKind: "screenshot",
   },
   {
     slug: "royallive-mobile",
@@ -330,26 +336,47 @@ export const projects: Project[] = [
     categories: ["Mobile"],
     github: "https://github.com/SinethNR/RoyalLive-Mobile",
     linkedinPost: "", // TODO
-    image: "/projects/royallive-mobile.svg",
+    image: "/projects/royallive-mobile.jpg",
+    imageKind: "ai",
+  },
+  {
+    slug: "axlexpert",
+    title: "AxleXpert",
+    hook: "Automobile service management system.",
+    description:
+      "A full-stack system for running an automobile service centre: customers book services, staff track each vehicle through the workshop, and the team produces quotes and invoices while technicians log their time. Built with a Spring Boot API on MySQL and a React frontend.",
+    highlights: [
+      "Service booking with calendar scheduling (FullCalendar)",
+      "Vehicle tracking, quotes and invoices, with PDF generation via html2pdf.js",
+      "Technician time logging; media on Cloudinary and email via SMTP",
+    ],
+    tech: ["Spring Boot", "React", "MySQL", "Tailwind CSS", "Material UI", "Cloudinary"],
+    categories: ["Web"],
+    role: "Full Stack Developer",
+    linkedinPost: "", // TODO
+    image: "/projects/axlexpert.jpg",
+    imageKind: "ai",
+    note: "Web project · 2025 – ongoing",
   },
   {
     slug: "luigi",
     title: "Luigi",
-    hook: "Raspberry Pi smart car with a GPT voice assistant.",
+    hook: "Interactive pet robot car with gesture recognition and a GPT voice assistant.",
     description:
-      "A team prototype of a Raspberry Pi–powered smart car you can talk to: speech recognition feeds GPT-3.5-turbo, and replies are spoken back with OpenAI text-to-speech. Around it the team tested the car's hardware — an MPU-6000 accelerometer/gyroscope, signal lights and USB audio — with an ESP32 remote and an emotion system planned.",
+      "An interactive desktop pet robot built as a University of Moratuwa team project (2024). It responds to gestures, talks back through a voice assistant (speech recognition → GPT-3.5-turbo → OpenAI text-to-speech), drives under ESP32 joystick remote control, and plays mini-games like rock-paper-scissors.",
     highlights: [
-      "Voice loop: speech-to-text → GPT-3.5-turbo → OpenAI TTS",
-      "Hardware tests on Raspberry Pi: MPU-6000 IMU, signal lights, USB mic and speaker",
-      "Python ↔ C inter-process communication experiments for real-time control",
+      "Gesture recognition, voice assistant and ESP32 joystick remote control",
+      "Touch and ultrasonic sensors, camera module and on-board mini-games",
+      "Raspberry Pi 4 + ESP32 hardware, designed with Fusion 360 and EasyEDA",
     ],
-    tech: ["Raspberry Pi", "Python", "OpenAI API", "ESP32", "C"],
+    tech: ["Raspberry Pi 4", "ESP32", "Python", "C++", "OpenAI API", "Fusion 360", "EasyEDA"],
     categories: ["Hardware", "AI"],
-    role: "", // TODO: describe your part (the repo's commits are by a teammate)
+    role: "System Architect — ESP32 and Raspberry Pi development.",
     github: "https://github.com/SinethNR/Luigi",
     linkedinPost: "", // TODO
-    image: "/projects/luigi.svg",
-    note: "Team project · prototype",
+    image: "/projects/luigi.jpg",
+    imageKind: "ai",
+    note: "Team project · UoM 2024",
   },
 ];
 

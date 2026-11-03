@@ -9,7 +9,7 @@ import Section from "../Section";
 import SectionHeading from "../SectionHeading";
 import Chip from "../Chip";
 import DetectionFrame from "../Detection";
-import ProjectModal, { mediaLayoutId } from "../ProjectModal";
+import ProjectModal, { ImageKindTag, mediaLayoutId } from "../ProjectModal";
 import { ArrowRightIcon } from "../icons";
 
 type Filter = "All" | ProjectCategory;
@@ -99,6 +99,7 @@ function FeaturedCard({ project, index, onOpen }: { project: Project; index: num
         <span className="absolute top-4 left-4 rounded-full bg-accent-yellow px-3 py-1 font-mono text-xs font-bold tracking-wider text-navy-950 uppercase">
           Featured
         </span>
+        <ImageKindTag kind={project.imageKind} />
         <YoloOverlay project={project} index={index} />
       </motion.div>
       <div className="flex flex-col p-7 sm:p-10">
@@ -143,6 +144,7 @@ function ProjectCard({ project, index, onOpen }: { project: Project; index: numb
           sizes="(min-width: 1280px) 400px, (min-width: 768px) 45vw, 100vw"
           className="object-cover transition-transform duration-700 group-hover:scale-[1.05]"
         />
+        <ImageKindTag kind={project.imageKind} />
         <YoloOverlay project={project} index={index} />
       </motion.div>
       <div className="flex flex-1 flex-col p-6 sm:p-7">

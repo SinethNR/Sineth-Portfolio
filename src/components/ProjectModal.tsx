@@ -8,6 +8,16 @@ import type { Project } from "@/data/portfolio";
 import Chip from "./Chip";
 import { CloseIcon, ExternalLinkIcon, GitHubIcon, LinkedInIcon } from "./icons";
 
+/** Small tag on a project image: "AI illustration" or "Live screenshot". */
+export function ImageKindTag({ kind }: { kind?: Project["imageKind"] }) {
+  if (!kind) return null;
+  return (
+    <span className="pointer-events-none absolute right-3 bottom-3 z-[5] rounded-md bg-navy-950/75 px-2 py-1 font-mono text-[10px] tracking-wider text-slate-200 uppercase backdrop-blur-sm">
+      {kind === "ai" ? "AI illustration" : "Live screenshot"}
+    </span>
+  );
+}
+
 /** Shared-element id: the card image morphs into the modal image (framer-motion layoutId). */
 export const mediaLayoutId = (slug: string) => `project-media-${slug}`;
 
@@ -75,6 +85,7 @@ export default function ProjectModal({ project, onClose }: { project: Project | 
               transition={{ type: "spring", stiffness: 260, damping: 30 }}
             >
               <Image src={project.image} alt={`${project.title} preview`} fill sizes="(min-width: 768px) 768px, 100vw" className="object-cover" />
+              <ImageKindTag kind={project.imageKind} />
             </motion.div>
 
             <button
